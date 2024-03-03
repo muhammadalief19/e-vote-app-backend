@@ -38,7 +38,7 @@ export const Login = async (req, res) => {
       email_verified: user.email_verified_at,
     };
     const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
-    await user.update({ accessToken });
+    await user.update({ refresh_token: accessToken });
     res.json({ accessToken });
   } catch (error) {
     return res.status(500).json({
@@ -62,16 +62,16 @@ export const logOut = async (req, res) => {
   }
   const userId = user.uuid;
 
-  await Users.update(
-    {
-      refresh_token: null,
-    },
-    {
-      where: {
-        uuid: userId,
-      },
-    }
-  );
+  // await Users.update(
+  //   {
+  //     refresh_token: null,
+  //   },
+  //   {
+  //     where: {
+  //       uuid: userId,
+  //     },
+  //   }
+  // );
   res.clearCookie("refreshToken");
   return res.status(200).json({
     msg: "logout berhasil",

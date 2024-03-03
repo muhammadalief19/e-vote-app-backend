@@ -28,7 +28,7 @@ const DataUsers = db.define(
     },
     foto_ktm: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: {
           msg: "foto ktm wajib diisi",

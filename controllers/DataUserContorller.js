@@ -51,11 +51,11 @@ export const createDataUser = async (req, res) => {
   let { nrp, alamat, userId, jenis_kelamin } = req.body;
   let foto_ktm = req.file ? req.file.filename : null;
   try {
-    if (foto_ktm == null) {
-      return res.status(500).json({
-        msg: "upload foto ktm terlebih dahulu",
-      });
-    }
+    // if (foto_ktm == null) {
+    //   return res.status(500).json({
+    //     msg: "upload foto ktm terlebih dahulu",
+    //   });
+    // }
 
     await DataUsers.create({
       nrp: nrp,

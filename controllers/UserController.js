@@ -55,7 +55,6 @@ export const createUser = async (req, res) => {
         msg: "upload foto profile terlebih dahulu",
       });
     }
-
     await Users.create({
       nama: nama,
       email: email,
@@ -136,7 +135,6 @@ export const deleteUser = async (req, res) => {
       const pathFile = path.join("./public/foto-profile", fotoProfile);
       fs.unlinkSync(pathFile);
     }
-
     try {
       await Users.destroy({ where: { uuid: id } });
       return res.status(200).json({
