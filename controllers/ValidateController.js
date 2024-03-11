@@ -182,13 +182,16 @@ export const golputValidation = async (req, res) => {
       },
     });
 
+    let data = {
+      voter: Math.floor((votes / mahasiswa) * 100),
+      golput: Math.floor(((userLog - votes) / mahasiswa) * 100),
+      notPresent: Math.floor(((mahasiswa - userLog) / mahasiswa) * 100),
+    };
     return res.status(200).json({
       status: true,
       msg: "counted data has been succesfully",
       payload: {
-        mahasiswa,
-        votes,
-        userLog,
+        pecentage: data,
       },
     });
   } catch (error) {
