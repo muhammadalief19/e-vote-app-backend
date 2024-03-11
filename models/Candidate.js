@@ -39,8 +39,8 @@ const Candidate = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: {
-          args: [10, 255],
+        min: {
+          args: 10,
           msg: "visi harus berisi minimal 10 karakter",
         },
       },
@@ -50,9 +50,9 @@ const Candidate = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: {
-          args: [10, 255],
-          msg: "misi harus berisi minimal 10 karakter",
+        min: {
+          args: 10,
+          msg: "visi harus berisi minimal 10 karakter",
         },
       },
     },
