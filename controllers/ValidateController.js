@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import Voting from "../models/Voting.js";
 import Users from "../models/User.js";
+import Suksesi from "../models/Suksesi.js";
 
 export const validateVoted = async (req, res) => {
   let { key1, key2 } = req.query;
@@ -138,6 +139,57 @@ export const countDataStat = async (req, res) => {
           color: "bg-slate-600",
         },
       ],
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: error.message,
+    });
+  }
+};
+
+export const golputValidation = async (req, res) => {
+  let { id } = req.params;
+  const suksesi = await Suksesi.findOne({
+    where: {
+      uuid: id,
+    },
+  });
+  try {
+    const mahasiswa = await Users.count({
+      where: {
+        [Op.not]: {
+          role: "admin",
+        },
+      },
+    });
+
+    const votes = await Voting.count({
+      where: {
+        suksesiId: suksesi.id,
+      },
+    });
+
+    const userLog = await Users.count({
+      where: {
+        [Op.and]: {
+          role: {
+            [Op.ne]: "admin",
+          },
+          [Op.not]: {
+            refresh_token: null,
+          },
+        },
+      },
+    });
+
+    return res.status(200).json({
+      status: true,
+      msg: "counted data has been succesfully",
+      payload: {
+        mahasiswa,
+        votes,
+        userLog,
+      },
     });
   } catch (error) {
     return res.status(500).json({
