@@ -190,9 +190,7 @@ export const golputValidation = async (req, res) => {
     return res.status(200).json({
       status: true,
       msg: "counted data has been succesfully",
-      payload: {
-        pecentage: data,
-      },
+      payload: [data.voter, data.golput, data.notPresent],
     });
   } catch (error) {
     return res.status(500).json({
